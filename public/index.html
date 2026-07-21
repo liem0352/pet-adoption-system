@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宠物领养管理系统 - API测试</title>
+  <style>
+    /* ========== 设计 Token（Apple HIG + Liquid Glass 风格） ========== */
+    :root {
+      /* 颜色 - Light（参考 Apple System Colors） */
+      --apple-blue: #0071e3;
+      --apple-blue-hover: #0077ed;
+      --apple-blue-pressed: #006edb;
+      --apple-blue-light: rgba(0, 113, 227, 0.08);
+      --apple-gray-1: #f5f5f7;
+      --apple-gray-2: #e8e8ed;
+      --apple-gray-3: #d2d2d7;
+      --apple-gray-4: #86868b;
+      --apple-gray-5: #6e6e73;
+      --apple-gray-6: #1d1d1f;
+      --apple-red: #ff3b30;
+      --apple-red-light: rgba(255, 59, 48, 0.1);
+      --apple-green: #34c759;
+      --apple-green-light: rgba(52, 199, 89, 0.12);
+      --apple-orange: #ff9500;
+      --apple-fill: rgba(120, 120, 128, 0.08);
+      --apple-fill-hover: rgba(120, 120, 128, 0.16);
+      --apple-fill-pressed: rgba(120, 120, 128, 0.24);
+      --apple-separator: rgba(60, 60, 67, 0.12);
+      --apple-separator-opaque: #c6c6c8;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f7;
+      --bg-tertiary: #e8e8ed;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --radius-full: 980px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+      --ease-spring: cubic-bezier(0.5, 1.5, 0.5, 1);
+      --ease-standard: cubic-bezier(0.65, 0, 0.35, 1);
+      --duration-fast: 200ms;
+      --duration-normal: 350ms;
+      --duration-slow: 500ms;
+      --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display',
+                   'SF Pro Text', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --apple-blue: #0a84ff;
+        --apple-blue-hover: #1a8cff;
+        --apple-blue-pressed: #007aff;
+        --apple-blue-light: rgba(10, 132, 255, 0.16);
+        --apple-gray-1: #1c1c1e;
+        --apple-gray-2: #2c2c2e;
+        --apple-gray-3: #3a3a3c;
+        --apple-gray-4: #8e8e93;
+        --apple-gray-5: #aeaeb2;
+        --apple-gray-6: #f5f5f7;
+        --apple-red: #ff453a;
+        --apple-red-light: rgba(255, 69, 58, 0.2);
+        --apple-green: #30d158;
+        --apple-green-light: rgba(48, 209, 88, 0.2);
+        --apple-orange: #ff9f0a;
+        --apple-fill: rgba(120, 120, 128, 0.24);
+        --apple-fill-hover: rgba(120, 120, 128, 0.32);
+        --apple-fill-pressed: rgba(120, 120, 128, 0.4);
+        --apple-separator: rgba(84, 84, 88, 0.6);
+        --apple-separator-opaque: #38383a;
+        --bg-primary: #000000;
+        --bg-secondary: #1c1c1e;
+        --bg-tertiary: #2c2c2e;
+        --text-primary: #f5f5f7;
+        --text-secondary: #aeaeb2;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      line-height: 1.47;
+      letter-spacing: -0.022em;
+      min-height: 100vh;
+      padding: var(--space-6);
+      padding-bottom: calc(var(--space-8) * 2);
+      background-color: #f5f5f7;
+      background-image:
+        radial-gradient(ellipse 70% 50% at 15% 0%, rgba(0, 113, 227, 0.18), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 15%, rgba(175, 82, 222, 0.15), transparent 55%),
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255, 149, 0, 0.12), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(255, 59, 48, 0.10), transparent 55%),
+        radial-gradient(ellipse 60% 50% at 0% 90%, rgba(52, 199, 89, 0.10), transparent 55%);
+      background-attachment: fixed;
+      background-size: 200% 200%;
+      animation: ambientFlow 20s ease-in-out infinite alternate;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .ambient-blob {
+      position: fixed; border-radius: 50%; filter: blur(80px);
+      opacity: 0.55; pointer-events: none; z-index: 0;
+      mix-blend-mode: normal; will-change: transform;
+    }
+    .ambient-blob-1 { width: 480px; height: 480px; top: -120px; left: -100px;
+      background: radial-gradient(circle, #0071e3 0%, transparent 70%);
+      animation: blobFloat1 18s ease-in-out infinite alternate; }
+    .ambient-blob-2 { width: 420px; height: 420px; top: 10%; right: -120px;
+      background: radial-gradient(circle, #af52de 0%, transparent 70%);
+      animation: blobFloat2 22s ease-in-out infinite alternate; }
+    .ambient-blob-3 { width: 520px; height: 520px; bottom: -150px; left: 30%;
+      background: radial-gradient(circle, #ff9500 0%, transparent 70%);
+      animation: blobFloat3 25s ease-in-out infinite alternate; }
+    .ambient-blob-4 { width: 380px; height: 380px; top: 40%; left: -100px;
+      background: radial-gradient(circle, #ff375f 0%, transparent 70%);
+      animation: blobFloat4 20s ease-in-out infinite alternate; }
+    .ambient-blob-5 { width: 440px; height: 440px; bottom: 10%; right: 10%;
+      background: radial-gradient(circle, #5e5ce6 0%, transparent 70%);
+      animation: blobFloat5 24s ease-in-out infinite alternate; }
+    .ambient-blob-6 { width: 360px; height: 360px; top: 20%; left: 40%;
+      background: radial-gradient(circle, #30d158 0%, transparent 70%);
+      animation: blobFloat6 19s ease-in-out infinite alternate; opacity: 0.4; }
+    .ambient-blob-7 { width: 400px; height: 400px; top: 60%; right: 30%;
+      background: radial-gradient(circle, #bf5af2 0%, transparent 70%);
+      animation: blobFloat7 23s ease-in-out infinite alternate; opacity: 0.45; }
+    .ambient-blob-8 { width: 340px; height: 340px; bottom: 30%; left: 20%;
+      background: radial-gradient(circle, #64d2ff 0%, transparent 70%);
+      animation: blobFloat8 21s ease-in-out infinite alternate; opacity: 0.4; }
+
+    @keyframes blobFloat1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(80px, 60px) scale(1.15); } }
+    @keyframes blobFloat2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-60px, 80px) scale(1.2); } }
+    @keyframes blobFloat3 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, -50px) scale(1.1); } }
+    @keyframes blobFloat4 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(70px, -70px) scale(1.18); } }
+    @keyframes blobFloat5 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-80px, -60px) scale(1.12); } }
+    @keyframes blobFloat6 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 70px) scale(1.2); } }
+    @keyframes blobFloat7 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-70px, 50px) scale(1.15); } }
+    @keyframes blobFloat8 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(60px, -60px) scale(1.18); } }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #000000;
+        background-image:
+          radial-gradient(ellipse 70% 50% at 15% 0%, rgba(10, 132, 255, 0.28), transparent 60%),
+          radial-gradient(ellipse 60% 50% at 85% 15%, rgba(191, 90, 242, 0.22), transparent 55%),
+          radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255, 159, 10, 0.18), transparent 60%),
+          radial-gradient(ellipse 50% 40% at 100% 80%, rgba(255, 69, 58, 0.16), transparent 55%),
+          radial-gradient(ellipse 60% 50% at 0% 90%, rgba(48, 209, 88, 0.16), transparent 55%);
+      }
+      .ambient-blob { opacity: 0.7; }
+      .ambient-blob-1 { background: radial-gradient(circle, #0a84ff 0%, transparent 70%); }
+      .ambient-blob-2 { background: radial-gradient(circle, #bf5af2 0%, transparent 70%); }
+      .ambient-blob-3 { background: radial-gradient(circle, #ff9f0a 0%, transparent 70%); }
+      .ambient-blob-4 { background: radial-gradient(circle, #ff375f 0%, transparent 70%); }
+      .ambient-blob-5 { background: radial-gradient(circle, #5e5ce6 0%, transparent 70%); }
+      .ambient-blob-6 { background: radial-gradient(circle, #30d158 0%, transparent 70%); }
+      .ambient-blob-7 { background: radial-gradient(circle, #bf5af2 0%, transparent 70%); }
+      .ambient-blob-8 { background: radial-gradient(circle, #64d2ff 0%, transparent 70%); }
+    }
+
+    @keyframes ambientFlow {
+      0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 100% 100%, 0% 100%; }
+      50%  { background-position: 10% 10%, 90% 10%, 60% 90%, 95% 95%, 5% 95%; }
+      100% { background-position: 0% 0%, 100% 0%, 50% 100%, 100% 100%, 0% 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+      .ambient-blob { animation: none !important; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .container { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px) saturate(200%);
+      -webkit-backdrop-filter: blur(16px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      position: relative;
+    }
+    .glass-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+      pointer-events: none; z-index: 0;
+    }
+    .glass-card > * { position: relative; z-index: 1; }
+    @media (prefers-color-scheme: dark) {
+      .glass-card {
+        background: rgba(28, 28, 30, 0.15);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+      .glass-card::before { background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%); }
+    }
+    @supports not (backdrop-filter: blur(10px)) { .glass-card { background: var(--apple-gray-1); } }
+
+    .header { text-align: center; margin-bottom: var(--space-8); padding: var(--space-8) var(--space-6); }
+    .header h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em; color: var(--apple-gray-6); margin-bottom: var(--space-2); }
+    .header p { color: var(--apple-gray-5); font-size: 1rem; font-weight: 400; }
+    .header .logo-icon { width: 56px; height: 56px; margin: 0 auto var(--space-4); color: var(--apple-blue); }
+
+    .grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-bottom: var(--space-6); }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+    .card { padding: var(--space-6); }
+    .card-header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); padding-bottom: var(--space-4); border-bottom: 0.5px solid var(--apple-separator); }
+    .card-header svg { width: 22px; height: 22px; color: var(--apple-blue); flex-shrink: 0; }
+    .card-header h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; color: var(--apple-gray-6); }
+
+    .form-group { margin-bottom: var(--space-4); }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--apple-gray-5); margin-bottom: var(--space-2); letter-spacing: -0.01em; }
+    .form-group label .required { color: var(--apple-red); margin-left: 2px; }
+    .form-input { width: 100%; padding: var(--space-3) var(--space-4); font-size: 1rem; font-family: inherit; color: var(--apple-gray-6); background: var(--apple-fill); border: 0.5px solid transparent; border-radius: var(--radius-md); transition: all var(--duration-fast) var(--ease-out); min-height: 48px; letter-spacing: -0.01em; }
+    .form-input:hover { background: var(--apple-fill-hover); }
+    .form-input:focus { outline: none; background: rgba(0, 113, 227, 0.04); border-color: var(--apple-blue); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); }
+    .form-input::placeholder { color: var(--apple-gray-4); opacity: 1; }
+
+    .password-wrapper { position: relative; }
+    .password-wrapper .form-input { padding-right: 48px; }
+    .password-toggle { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; min-width: 36px; padding: 0; border: none; background: transparent; color: var(--apple-gray-4); cursor: pointer; border-radius: var(--radius-sm); display: inline-flex; align-items: center; justify-content: center; transition: all var(--duration-fast) var(--ease-out); }
+    .password-toggle:hover { background: var(--apple-fill-hover); color: var(--apple-gray-6); }
+    .password-toggle:active { background: var(--apple-fill-pressed); transform: translateY(-50%) scale(0.95); }
+    .password-toggle:focus-visible { outline: 2px solid var(--apple-blue); outline-offset: 2px; }
+    .password-toggle svg { width: 20px; height: 20px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); font-size: 1rem; font-weight: 500; font-family: inherit; border: none; border-radius: var(--radius-full); cursor: pointer; transition: all var(--duration-fast) var(--ease-out); min-height: 44px; min-width: 120px; letter-spacing: -0.01em; }
+    .btn:focus-visible { outline: 2px solid var(--apple-blue); outline-offset: 2px; }
+    .btn svg { width: 18px; height: 18px; }
+    .btn-primary { background: var(--apple-blue); color: #ffffff; }
+    .btn-primary:hover { background: var(--apple-blue-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+    .btn-primary:active { background: var(--apple-blue-pressed); transform: scale(0.97); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-secondary { background: var(--apple-fill); color: var(--apple-blue); }
+    .btn-secondary:hover { background: var(--apple-fill-hover); }
+    .btn-secondary:active { background: var(--apple-fill-pressed); transform: scale(0.97); }
+    .btn-danger { background: var(--apple-red); color: #ffffff; }
+    .btn-danger:active { transform: scale(0.97); }
+    .btn-block { width: 100%; }
+
+    .token-box { padding: var(--space-4); background: var(--apple-fill); border-radius: var(--radius-md); border: 0.5px solid var(--apple-separator); font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem; color: var(--apple-gray-5); word-break: break-all; margin-top: var(--space-3); max-height: 100px; overflow-y: auto; }
+    .token-box.has-token { border-color: var(--apple-blue); background: var(--apple-blue-light); color: var(--apple-blue); }
+
+    .pet-list { display: grid; grid-template-columns: 1fr; gap: var(--space-3); margin-top: var(--space-4); }
+    .pet-item { display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); background: var(--apple-fill); border-radius: var(--radius-md); transition: all var(--duration-fast) var(--ease-out); animation: slideIn var(--duration-normal) var(--ease-out); }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .pet-item:hover { background: var(--apple-fill-hover); transform: translateY(-1px); }
+    .pet-info { flex: 1; }
+    .pet-name { font-weight: 600; color: var(--apple-gray-6); margin-bottom: 2px; letter-spacing: -0.01em; }
+    .pet-meta { font-size: 0.85rem; color: var(--apple-gray-5); }
+    .pet-badge { display: inline-block; padding: 2px 10px; background: var(--apple-blue-light); color: var(--apple-blue); border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500; margin-right: var(--space-2); }
+    .btn-icon { width: 36px; height: 36px; min-width: 36px; padding: 0; border-radius: var(--radius-sm); background: transparent; color: var(--apple-red); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all var(--duration-fast) var(--ease-out); }
+    .btn-icon:hover { background: var(--apple-red-light); }
+    .btn-icon:active { transform: scale(0.92); }
+    .btn-icon svg { width: 18px; height: 18px; }
+
+    .empty-state { text-align: center; padding: var(--space-8) var(--space-4); color: var(--apple-gray-4); }
+    .empty-state svg { width: 48px; height: 48px; margin: 0 auto var(--space-3); opacity: 0.5; }
+
+    .response-box { margin-top: var(--space-4); padding: var(--space-4); background: var(--apple-fill); border-radius: var(--radius-md); border-left: 3px solid var(--apple-gray-3); font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem; color: var(--apple-gray-5); white-space: pre-wrap; word-break: break-all; max-height: 240px; overflow-y: auto; transition: all var(--duration-normal) var(--ease-out); }
+    .response-box.success { border-left-color: var(--apple-green); background: var(--apple-green-light); color: var(--apple-gray-6); }
+    .response-box.error { border-left-color: var(--apple-red); background: var(--apple-red-light); color: var(--apple-gray-6); }
+
+    .user-info { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: var(--apple-blue-light); border-radius: var(--radius-lg); color: var(--apple-gray-6); margin-bottom: var(--space-4); }
+    .user-avatar { width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--apple-blue); color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0; }
+    .user-details { flex: 1; }
+    .user-name { font-weight: 600; letter-spacing: -0.01em; }
+    .user-id { font-size: 0.8rem; color: var(--apple-gray-5); }
+
+    .loading { display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .toast { position: fixed; top: var(--space-6); right: var(--space-6); padding: var(--space-4) var(--space-5); background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); color: var(--apple-gray-6); border-radius: var(--radius-lg); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12); border-left: 3px solid var(--apple-blue); z-index: 1000; animation: toastIn var(--duration-normal) var(--ease-spring); max-width: 360px; font-weight: 500; letter-spacing: -0.01em; }
+    @media (prefers-color-scheme: dark) { .toast { background: rgba(44, 44, 46, 0.85); color: var(--apple-gray-6); } }
+    .toast.success { border-left-color: var(--apple-green); }
+    .toast.error { border-left-color: var(--apple-red); }
+    @keyframes toastIn { from { opacity: 0; transform: translateX(20px) scale(0.95); } to { opacity: 1; transform: translateX(0) scale(1); } }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--apple-gray-3); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--apple-gray-4); }
+  </style>
+</head>
+<body>
+  <div class="ambient-blob ambient-blob-1" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-2" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-3" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-4" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-5" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-6" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-7" aria-hidden="true"></div>
+  <div class="ambient-blob ambient-blob-8" aria-hidden="true"></div>
+
+  <div class="container">
+    <header class="header glass-card">
+      <svg class="logo-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4.5 9.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Zm10 0a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0ZM12 14c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4Zm-3.5-3.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+      </svg>
+      <h1>宠物领养管理系统</h1>
+      <p>Node.js + Express + MySQL 后端 API 测试平台 · Apple HIG + Liquid Glass（端口 3000）</p>
+    </header>
+
+    <div class="grid">
+      <section class="card glass-card" aria-labelledby="register-title">
+        <div class="card-header">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15 14c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM6 8V6H4v2H2v2h2v2h2v-2h2V8H6Z"/></svg>
+          <h2 id="register-title">用户注册</h2>
+        </div>
+        <form id="registerForm" novalidate>
+          <div class="form-group">
+            <label for="reg-username">用户名<span class="required">*</span></label>
+            <input type="text" id="reg-username" class="form-input" placeholder="请输入用户名" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="reg-password">密码<span class="required">*</span></label>
+            <div class="password-wrapper">
+              <input type="password" id="reg-password" class="form-input" placeholder="请输入密码" required autocomplete="new-password">
+              <button type="button" class="password-toggle" data-target="reg-password" aria-label="显示密码" aria-pressed="false">
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5Zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm0-7.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;"><path d="M12 6.5c2.76 0 5 2.24 5 5 0 .51-.1 1-.24 1.46l3.06 3.06c1.39-1.23 2.49-2.77 3.18-4.52C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l2.17 2.17c.47-.14.96-.24 1.47-.24ZM2.71 3.16a.996.996 0 0 0 0 1.41l2.06 2.06A11.012 11.012 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l2.93 2.93a.996.996 0 1 0 1.41-1.41L4.13 3.16a.996.996 0 0 0-1.42 0ZM12 16.5c-2.76 0-5-2.24-5-5 0-.55.12-1.07.29-1.56L8.9 11.5c-.04.17-.06.34-.06.5 0 1.66 1.34 3 3 3 .17 0 .33-.02.5-.06l1.56 1.56c-.49.17-1.01.29-1.56.29Z"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="registerBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z"/></svg>
+            注册
+          </button>
+        </form>
+        <div class="response-box" id="registerResponse" aria-live="polite">等待操作...</div>
+      </section>
+
+      <section class="card glass-card" aria-labelledby="login-title">
+        <div class="card-header">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5Zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14Z"/></svg>
+          <h2 id="login-title">用户登录</h2>
+        </div>
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label for="login-username">用户名<span class="required">*</span></label>
+            <input type="text" id="login-username" class="form-input" placeholder="请输入用户名" required autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="login-password">密码<span class="required">*</span></label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" class="form-input" placeholder="请输入密码" required autocomplete="current-password">
+              <button type="button" class="password-toggle" data-target="login-password" aria-label="显示密码" aria-pressed="false">
+                <svg class="icon-eye" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5Zm0 12a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Zm0-7.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                <svg class="icon-eye-off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none;"><path d="M12 6.5c2.76 0 5 2.24 5 5 0 .51-.1 1-.24 1.46l3.06 3.06c1.39-1.23 2.49-2.77 3.18-4.52C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l2.17 2.17c.47-.14.96-.24 1.47-.24ZM2.71 3.16a.996.996 0 0 0 0 1.41l2.06 2.06A11.012 11.012 0 0 0 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l2.93 2.93a.996.996 0 1 0 1.41-1.41L4.13 3.16a.996.996 0 0 0-1.42 0ZM12 16.5c-2.76 0-5-2.24-5-5 0-.55.12-1.07.29-1.56L8.9 11.5c-.04.17-.06.34-.06.5 0 1.66 1.34 3 3 3 .17 0 .33-.02.5-.06l1.56 1.56c-.49.17-1.01.29-1.56.29Z"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11 7 9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5Zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14Z"/></svg>
+            登录
+          </button>
+        </form>
+        <div class="response-box" id="loginResponse" aria-live="polite">等待操作...</div>
+        <div class="token-box" id="tokenBox" style="display:none;">未获取到Token</div>
+      </section>
+
+      <section class="card glass-card" aria-labelledby="add-pet-title">
+        <div class="card-header">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z"/></svg>
+          <h2 id="add-pet-title">添加宠物</h2>
+        </div>
+        <form id="addPetForm" novalidate>
+          <div class="form-group">
+            <label for="pet-category">宠物分类<span class="required">*</span></label>
+            <input type="text" id="pet-category" class="form-input" placeholder="如：猫、狗、兔子" required>
+          </div>
+          <div class="form-group">
+            <label for="pet-name">宠物名称<span class="required">*</span></label>
+            <input type="text" id="pet-name" class="form-input" placeholder="如：小白" required>
+          </div>
+          <div class="form-group">
+            <label for="pet-gender">性别<span class="required">*</span></label>
+            <select id="pet-gender" class="form-input" required>
+              <option value="">请选择</option>
+              <option value="公">公</option>
+              <option value="母">母</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pet-age">年龄<span class="required">*</span></label>
+            <input type="number" id="pet-age" class="form-input" placeholder="如：2" min="0" max="50" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="addPetBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z"/></svg>
+            添加宠物
+          </button>
+        </form>
+        <div class="response-box" id="addPetResponse" aria-live="polite">等待操作...</div>
+      </section>
+
+      <section class="card glass-card" aria-labelledby="search-pet-title">
+        <div class="card-header">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
+          <h2 id="search-pet-title">搜索宠物</h2>
+        </div>
+        <form id="searchForm" novalidate>
+          <div class="form-group">
+            <label for="search-keyword">关键字<span class="required">*</span></label>
+            <input type="text" id="search-keyword" class="form-input" placeholder="按名称或分类搜索" required>
+          </div>
+          <button type="submit" class="btn btn-secondary btn-block" id="searchBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14Z"/></svg>
+            搜索
+          </button>
+        </form>
+        <div class="response-box" id="searchResponse" aria-live="polite">等待操作...</div>
+      </section>
+    </div>
+
+    <section class="card glass-card" aria-labelledby="pet-list-title" style="margin-bottom: var(--space-6);">
+      <div class="card-header">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h16v2H4v-2Z"/></svg>
+        <h2 id="pet-list-title">宠物列表</h2>
+        <button class="btn btn-secondary" id="refreshBtn" style="margin-left: auto; min-width: auto; padding: var(--space-2) var(--space-4);">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4a8 8 0 1 0 7.73 10h-2.08A6 6 0 1 1 12 6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35Z"/></svg>
+          刷新
+        </button>
+      </div>
+      <div id="userInfoBox" style="display:none;">
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <div class="user-details">
+            <div class="user-name" id="userInfoName">未登录</div>
+            <div class="user-id" id="userInfoId">ID: -</div>
+          </div>
+          <button class="btn btn-secondary" id="fetchUserInfoBtn" style="min-width: auto; padding: var(--space-2) var(--space-4);">获取用户信息</button>
+        </div>
+      </div>
+      <div id="petListContainer">
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM7 12h2v5H7v-5Zm4-5h2v10h-2V7Zm4 3h2v7h-2v-7Z"/></svg>
+          <p>暂无宠物数据，请点击"刷新"加载</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let authToken = localStorage.getItem('pet_token') || '';
+    let currentUserId = localStorage.getItem('pet_user_id') || '';
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      toast.setAttribute('role', 'alert');
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(20px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function updateResponse(elementId, data, isSuccess = true) {
+      const box = document.getElementById(elementId);
+      box.textContent = JSON.stringify(data, null, 2);
+      box.className = 'response-box ' + (isSuccess ? 'success' : 'error');
+    }
+
+    function setLoading(btn, loading) {
+      if (loading) {
+        btn.disabled = true;
+        btn.dataset.originalHtml = btn.innerHTML;
+        btn.innerHTML = '<span class="loading"></span> 处理中...';
+      } else {
+        btn.disabled = false;
+        if (btn.dataset.originalHtml) { btn.innerHTML = btn.dataset.originalHtml; }
+      }
+    }
+
+    function getAuthHeaders() {
+      const headers = { 'Content-Type': 'application/json' };
+      if (authToken) { headers['Authorization'] = 'Bearer ' + authToken; }
+      return headers;
+    }
+
+    function updateTokenDisplay() {
+      const box = document.getElementById('tokenBox');
+      if (authToken) {
+        box.style.display = 'block';
+        box.textContent = 'Token: ' + authToken.substring(0, 50) + '...';
+        box.classList.add('has-token');
+      } else {
+        box.style.display = 'none';
+        box.classList.remove('has-token');
+      }
+    }
+
+    function updateUserInfoDisplay() {
+      const box = document.getElementById('userInfoBox');
+      if (authToken) { box.style.display = 'block'; } else { box.style.display = 'none'; }
+    }
+
+    function renderPetList(pets, containerId = 'petListContainer') {
+      const container = document.getElementById(containerId);
+      if (!pets || pets.length === 0) {
+        container.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM7 12h2v5H7v-5Zm4-5h2v10h-2V7Zm4 3h2v7h-2v-7Z"/></svg><p>暂无宠物数据</p></div>';
+        return;
+      }
+      container.innerHTML = '<div class="pet-list">' + pets.map(pet => '<div class="pet-item"><div class="pet-info"><div class="pet-name"><span class="pet-badge">' + escapeHtml(pet.category) + '</span>' + escapeHtml(pet.name) + '</div><div class="pet-meta">ID: ' + pet.id + ' | 性别: ' + escapeHtml(pet.gender) + ' | 年龄: ' + pet.age + '岁</div></div><button class="btn-icon" onclick="deletePet(' + pet.id + ')" aria-label="删除宠物 ' + escapeHtml(pet.name) + '"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12ZM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4Z"/></svg></button></div>').join('') + '</div>';
+    }
+
+    function escapeHtml(str) {
+      if (str == null) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    async function deletePet(id) {
+      if (!authToken) { showToast('请先登录', 'error'); return; }
+      if (!confirm('确定要删除这只宠物吗？')) return;
+      try {
+        const res = await fetch('/pet/delete?id=' + id, { method: 'DELETE', headers: getAuthHeaders() });
+        const data = await res.json();
+        if (data.code === 200) { showToast('删除成功', 'success'); loadPetList(); }
+        else { showToast(data.message || '删除失败', 'error'); }
+      } catch (err) { showToast('网络错误：' + err.message, 'error'); }
+    }
+
+    async function loadPetList() {
+      try {
+        const res = await fetch('/pet/list');
+        const data = await res.json();
+        if (data.code === 200) { renderPetList(data.data); }
+        else { showToast(data.message || '加载失败', 'error'); }
+      } catch (err) { showToast('网络错误：' + err.message, 'error'); }
+    }
+
+    async function fetchUserInfo() {
+      if (!authToken) { showToast('请先登录', 'error'); return; }
+      try {
+        const res = await fetch('/user/info', { headers: getAuthHeaders() });
+        const data = await res.json();
+        if (data.code === 200) {
+          document.getElementById('userInfoName').textContent = data.data.username;
+          document.getElementById('userInfoId').textContent = 'ID: ' + data.data.id;
+          document.getElementById('userAvatar').textContent = data.data.username.charAt(0).toUpperCase();
+          showToast('用户信息获取成功', 'success');
+        } else { showToast(data.message || '获取失败', 'error'); }
+      } catch (err) { showToast('网络错误：' + err.message, 'error'); }
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('registerBtn');
+      const username = document.getElementById('reg-username').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+      if (!username || !password) { showToast('用户名和密码不能为空', 'error'); return; }
+      setLoading(btn, true);
+      try {
+        const res = await fetch('/user/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+        const data = await res.json();
+        updateResponse('registerResponse', data, data.code === 200);
+        showToast(data.message, data.code === 200 ? 'success' : 'error');
+      } catch (err) { updateResponse('registerResponse', { error: err.message }, false); showToast('网络错误', 'error'); }
+      finally { setLoading(btn, false); }
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      if (!username || !password) { showToast('用户名和密码不能为空', 'error'); return; }
+      setLoading(btn, true);
+      try {
+        const res = await fetch('/user/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+        const data = await res.json();
+        updateResponse('loginResponse', data, data.code === 200);
+        if (data.code === 200 && data.data.token) {
+          authToken = data.data.token;
+          currentUserId = data.data.id;
+          localStorage.setItem('pet_token', authToken);
+          localStorage.setItem('pet_user_id', currentUserId);
+          updateTokenDisplay();
+          updateUserInfoDisplay();
+          showToast('登录成功', 'success');
+        } else { showToast(data.message || '登录失败', 'error'); }
+      } catch (err) { updateResponse('loginResponse', { error: err.message }, false); showToast('网络错误', 'error'); }
+      finally { setLoading(btn, false); }
+    });
+
+    document.getElementById('addPetForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!authToken) { showToast('请先登录', 'error'); return; }
+      const btn = document.getElementById('addPetBtn');
+      const category = document.getElementById('pet-category').value.trim();
+      const name = document.getElementById('pet-name').value.trim();
+      const gender = document.getElementById('pet-gender').value;
+      const age = document.getElementById('pet-age').value;
+      if (!category || !name || !gender || !age) { showToast('所有字段都不能为空', 'error'); return; }
+      setLoading(btn, true);
+      try {
+        const res = await fetch('/pet/add', { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ category, name, gender, age: Number(age) }) });
+        const data = await res.json();
+        updateResponse('addPetResponse', data, data.code === 200);
+        showToast(data.message, data.code === 200 ? 'success' : 'error');
+        if (data.code === 200) { loadPetList(); document.getElementById('addPetForm').reset(); }
+      } catch (err) { updateResponse('addPetResponse', { error: err.message }, false); showToast('网络错误', 'error'); }
+      finally { setLoading(btn, false); }
+    });
+
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('searchBtn');
+      const keyword = document.getElementById('search-keyword').value.trim();
+      if (!keyword) { showToast('请输入搜索关键字', 'error'); return; }
+      setLoading(btn, true);
+      try {
+        const res = await fetch('/pet/search?keyword=' + encodeURIComponent(keyword));
+        const data = await res.json();
+        updateResponse('searchResponse', data, data.code === 200);
+        if (data.code === 200) { renderPetList(data.data, 'petListContainer'); showToast('找到 ' + data.data.length + ' 条结果', 'success'); }
+        else { showToast(data.message || '搜索失败', 'error'); }
+      } catch (err) { updateResponse('searchResponse', { error: err.message }, false); showToast('网络错误', 'error'); }
+      finally { setLoading(btn, false); }
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadPetList);
+    document.getElementById('fetchUserInfoBtn').addEventListener('click', fetchUserInfo);
+
+    document.querySelectorAll('.password-toggle').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var targetId = this.getAttribute('data-target');
+        var input = document.getElementById(targetId);
+        if (!input) return;
+        var isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        this.setAttribute('aria-pressed', String(isPassword));
+        this.setAttribute('aria-label', isPassword ? '隐藏密码' : '显示密码');
+        var eyeIcon = this.querySelector('.icon-eye');
+        var eyeOffIcon = this.querySelector('.icon-eye-off');
+        if (eyeIcon && eyeOffIcon) {
+          eyeIcon.style.display = isPassword ? 'none' : '';
+          eyeOffIcon.style.display = isPassword ? '' : 'none';
+        }
+      });
+    });
+
+    updateTokenDisplay();
+    updateUserInfoDisplay();
+    loadPetList();
+  </script>
+</body>
+</html>
