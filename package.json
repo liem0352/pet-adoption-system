@@ -1,0 +1,27 @@
+{
+  "name": "pet-adoption-system",
+  "version": "1.0.0",
+  "description": "宠物领养管理系统后端API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "pet",
+    "adoption",
+    "express",
+    "mysql"
+  ],
+  "author": "liem",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.5"
+  }
+}
