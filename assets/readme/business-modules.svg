@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="100%" role="img" aria-labelledby="bizTitle bizDesc">
+  <title id="bizTitle">业务域 - 用户 / 宠物 / 鉴权 / 测试页 / 统一响应</title>
+  <desc id="bizDesc">宠物领养系统的五个真实业务域:用户管理、宠物管理、鉴权中间件、Liquid Glass 测试页、统一响应格式。</desc>
+
+  <rect x="0" y="0" width="1200" height="320" rx="20" fill="#1A1410"/>
+  <rect x="0.5" y="0.5" width="1199" height="319" rx="20" fill="none" stroke="#2A211B" stroke-width="1"/>
+
+  <g transform="translate(48 36)">
+    <line x1="0" y1="6" x2="22" y2="6" stroke="#C97B5C" stroke-width="2" stroke-linecap="round"/>
+    <text x="32" y="11" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" letter-spacing="1.6" fill="#C97B5C">DOMAINS · BUSINESS</text>
+    <text x="0" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="700" letter-spacing="-0.3" fill="#E8E4D9">业务域</text>
+    <text x="0" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400" fill="#8B7E72">五个真实业务域,覆盖用户、宠物、鉴权、测试与统一响应</text>
+  </g>
+
+  <g transform="translate(48 132)">
+    <g>
+      <rect x="0" y="0" width="208" height="160" rx="12" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="208" height="4" rx="2" fill="#C97B5C"/>
+      <text x="16" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#C97B5C">USER</text>
+      <text x="16" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#E8E4D9">用户域</text>
+      <line x1="16" y1="74" x2="192" y2="74" stroke="#3A2F26" stroke-width="1"/>
+      <text x="16" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">register · login · info</text>
+      <text x="16" y="118" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">bcrypt hash 入库</text>
+      <text x="16" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">JWT 24h 签发</text>
+    </g>
+
+    <g transform="translate(224 0)">
+      <rect x="0" y="0" width="208" height="160" rx="12" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="208" height="4" rx="2" fill="#C97B5C"/>
+      <text x="16" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#C97B5C">PET</text>
+      <text x="16" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#E8E4D9">宠物域</text>
+      <line x1="16" y1="74" x2="192" y2="74" stroke="#3A2F26" stroke-width="1"/>
+      <text x="16" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">add · list · search · delete</text>
+      <text x="16" y="118" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">CRUD 全覆盖</text>
+      <text x="16" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">名称 / 分类模糊搜索</text>
+    </g>
+
+    <g transform="translate(448 0)">
+      <rect x="0" y="0" width="208" height="160" rx="12" fill="#16202E" stroke="#283248" stroke-width="1"/>
+      <rect x="0" y="0" width="208" height="4" rx="2" fill="#4A9EFF"/>
+      <text x="16" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#4A9EFF">MIDDLEWARE</text>
+      <text x="16" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#E8E4D9">鉴权中间件</text>
+      <line x1="16" y1="74" x2="192" y2="74" stroke="#283248" stroke-width="1"/>
+      <text x="16" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">logger · auth · errorHandler</text>
+      <text x="16" y="118" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">404 与未捕获异常兜底</text>
+      <text x="16" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">JWT 统一拦截</text>
+    </g>
+
+    <g transform="translate(672 0)">
+      <rect x="0" y="0" width="208" height="160" rx="12" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="208" height="4" rx="2" fill="#E8E4D9"/>
+      <text x="16" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#E8E4D9">TEST PAGE</text>
+      <text x="16" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#E8E4D9">测试页</text>
+      <line x1="16" y1="74" x2="192" y2="74" stroke="#3A2F26" stroke-width="1"/>
+      <text x="16" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">Liquid Glass 风格</text>
+      <text x="16" y="118" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">Token 管理 · Toast</text>
+      <text x="16" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">Apple HIG · 开箱即用</text>
+    </g>
+
+    <g transform="translate(896 0)">
+      <rect x="0" y="0" width="208" height="160" rx="12" fill="#14201A" stroke="#2A3A30" stroke-width="1"/>
+      <rect x="0" y="0" width="208" height="4" rx="2" fill="#9EB8A8"/>
+      <text x="16" y="32" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#9EB8A8">RESPONSE</text>
+      <text x="16" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700" fill="#E8E4D9">统一响应</text>
+      <line x1="16" y1="74" x2="192" y2="74" stroke="#2A3A30" stroke-width="1"/>
+      <text x="16" y="96" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">{ code, message, data }</text>
+      <text x="16" y="118" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">三段式结构</text>
+      <text x="16" y="138" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">全局错误兜底</text>
+    </g>
+  </g>
+</svg>

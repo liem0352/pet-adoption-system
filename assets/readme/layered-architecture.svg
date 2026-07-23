@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="100%" role="img" aria-labelledby="archTitle archDesc">
+  <title id="archTitle">分层架构 - Router / Middleware / Model / MySQL</title>
+  <desc id="archDesc">宠物领养系统四层分层架构:HTTP 请求进入路由层,经中间件层(logger、JWT 鉴权、错误兜底)校验后下行到模型层,最终由 MySQL 连接池持久化,响应统一以三段式结构返回。</desc>
+
+  <defs>
+    <marker id="archArrow" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 5 8 L 9 1" fill="none" stroke="#8B7E72" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="360" rx="20" fill="#1A1410"/>
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="20" fill="none" stroke="#2A211B" stroke-width="1"/>
+
+  <g transform="translate(48 36)">
+    <line x1="0" y1="6" x2="22" y2="6" stroke="#C97B5C" stroke-width="2" stroke-linecap="round"/>
+    <text x="32" y="11" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" letter-spacing="1.6" fill="#C97B5C">ARCHITECTURE · LAYERED</text>
+    <text x="0" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="700" letter-spacing="-0.3" fill="#E8E4D9">四层分层架构</text>
+    <text x="0" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400" fill="#8B7E72">请求自上而下贯穿四层,JWT 在中间件层统一拦截,无需在每个路由重复鉴权</text>
+  </g>
+
+  <g transform="translate(48 120)">
+    <g>
+      <rect x="0" y="0" width="1104" height="40" rx="8" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="40" rx="2" fill="#C97B5C"/>
+      <text x="20" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">路由层 Router</text>
+      <text x="170" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">HTTP 入口 · 解析 req · 组装 res</text>
+      <text x="1084" y="25" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">petRouter · userRouter</text>
+    </g>
+
+    <line x1="552" y1="42" x2="552" y2="50" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#archArrow)"/>
+
+    <g transform="translate(0 52)">
+      <rect x="0" y="0" width="1104" height="40" rx="8" fill="#16202E" stroke="#283248" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="40" rx="2" fill="#4A9EFF"/>
+      <text x="20" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">中间件 Middleware</text>
+      <text x="200" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">logger · errorHandler · 404 兜底</text>
+      <text x="1084" y="25" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="600" fill="#4A9EFF">auth.js · JWT verify</text>
+    </g>
+
+    <line x1="552" y1="94" x2="552" y2="102" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#archArrow)"/>
+
+    <g transform="translate(0 104)">
+      <rect x="0" y="0" width="1104" height="40" rx="8" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="40" rx="2" fill="#C97B5C"/>
+      <text x="20" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">模型层 Model</text>
+      <text x="170" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">业务逻辑封装 · SQL 拼装</text>
+      <text x="1084" y="25" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">petModel · userModel</text>
+    </g>
+
+    <line x1="552" y1="146" x2="552" y2="154" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#archArrow)"/>
+
+    <g transform="translate(0 156)">
+      <rect x="0" y="0" width="1104" height="40" rx="8" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="40" rx="2" fill="#E8E4D9"/>
+      <text x="20" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">数据库层 MySQL</text>
+      <text x="200" y="25" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">持久化 · 事务</text>
+      <text x="1084" y="25" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">mysql2 连接池</text>
+    </g>
+  </g>
+
+  <g transform="translate(48 340)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">响应</text>
+    <text x="44" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#E8E4D9">{ code, message, data }</text>
+    <text x="1104" y="0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">三段式统一响应</text>
+  </g>
+</svg>

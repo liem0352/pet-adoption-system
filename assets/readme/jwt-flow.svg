@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="100%" role="img" aria-labelledby="jwtTitle jwtDesc">
+  <title id="jwtTitle">JWT 鉴权流程</title>
+  <desc id="jwtDesc">JWT 鉴权完整流程:用户登录校验账号密码后签发 24 小时有效期 token,客户端存储后在后续请求中携带 Authorization Bearer token,中间件 auth.js 校验签名与有效期,通过则放行到路由,失败返回 401。</desc>
+
+  <defs>
+    <marker id="jwtArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#8B7E72" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="jwtArrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#4A9EFF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="jwtArrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#9EB8A8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="jwtArrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 8 5 L 1 9" fill="none" stroke="#C97B7B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="320" rx="20" fill="#1A1410"/>
+  <rect x="0.5" y="0.5" width="1199" height="319" rx="20" fill="none" stroke="#2A211B" stroke-width="1"/>
+
+  <g transform="translate(48 36)">
+    <line x1="0" y1="6" x2="22" y2="6" stroke="#4A9EFF" stroke-width="2" stroke-linecap="round"/>
+    <text x="32" y="11" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" letter-spacing="1.6" fill="#4A9EFF">AUTH · JWT FLOW</text>
+    <text x="0" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="700" letter-spacing="-0.3" fill="#E8E4D9">JWT 鉴权流程</text>
+    <text x="0" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400" fill="#8B7E72">登录签发 token,后续请求携带 Bearer token,中间件统一校验,失效直接 401</text>
+  </g>
+
+  <g transform="translate(48 100)">
+    <g>
+      <rect x="0" y="0" width="200" height="56" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <text x="100" y="24" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#E8E4D9">POST /user/login</text>
+      <text x="100" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">username · password</text>
+    </g>
+    <line x1="206" y1="28" x2="246" y2="28" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#jwtArrow)"/>
+
+    <g transform="translate(252 0)">
+      <rect x="0" y="0" width="220" height="56" rx="10" fill="#16202E" stroke="#283248" stroke-width="1"/>
+      <text x="110" y="24" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#E8E4D9">bcrypt 校验 · 签发 JWT</text>
+      <text x="110" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#4A9EFF">jsonwebtoken · expiresIn 24h</text>
+    </g>
+    <line x1="478" y1="28" x2="518" y2="28" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#jwtArrow)"/>
+
+    <g transform="translate(524 0)">
+      <rect x="0" y="0" width="200" height="56" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <text x="100" y="24" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#E8E4D9">返回 token</text>
+      <text x="100" y="44" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">data.token · 客户端存储</text>
+    </g>
+  </g>
+
+  <g transform="translate(48 196)">
+    <g>
+      <rect x="0" y="0" width="200" height="50" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <text x="100" y="22" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#E8E4D9">受保护接口请求</text>
+      <text x="100" y="40" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">Authorization: Bearer</text>
+    </g>
+    <line x1="206" y1="25" x2="246" y2="25" stroke="#4A9EFF" stroke-width="1.2" marker-end="url(#jwtArrowBlue)"/>
+
+    <g transform="translate(252 0)">
+      <rect x="0" y="0" width="220" height="50" rx="10" fill="#16202E" stroke="#283248" stroke-width="1"/>
+      <text x="110" y="22" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#E8E4D9">auth.js 校验</text>
+      <text x="110" y="40" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#4A9EFF">验签 · 查过期 · 解析 payload</text>
+    </g>
+
+    <path d="M 472 25 L 502 25 L 502 -3 L 516 -3" fill="none" stroke="#9EB8A8" stroke-width="1.2" marker-end="url(#jwtArrowGreen)"/>
+    <path d="M 472 25 L 502 25 L 502 53 L 516 53" fill="none" stroke="#C97B7B" stroke-width="1.2" marker-end="url(#jwtArrowRed)"/>
+
+    <g transform="translate(520 -26)">
+      <rect x="0" y="0" width="180" height="46" rx="10" fill="#14201A" stroke="#6E8B7A" stroke-width="1"/>
+      <text x="90" y="20" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#9EB8A8">放行 · next()</text>
+      <text x="90" y="36" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">→ 路由层 · 200</text>
+    </g>
+
+    <g transform="translate(520 30)">
+      <rect x="0" y="0" width="180" height="46" rx="10" fill="#2A1414" stroke="#A05A5A" stroke-width="1"/>
+      <text x="90" y="20" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#C97B7B">拒绝 · 401</text>
+      <text x="90" y="36" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">token 缺失 / 失效</text>
+    </g>
+  </g>
+
+  <g transform="translate(48 300)">
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">中间件层 auth.js 统一拦截 · 受保护接口无需在路由重复鉴权</text>
+  </g>
+</svg>

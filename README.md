@@ -51,13 +51,21 @@ pet-adoption-system/
 
 ---
 
-## 这是什么
+## 工作原理
 
-一套面向宠物领养场景的后端 API 系统:用分层架构组织代码,用 JWT 保护需要鉴权的接口,用 MySQL 持久化业务数据,前端附带一个可视化测试页面方便联调。
+<p align="center">
+  <img src="assets/readme/layered-architecture.svg" alt="四层分层架构:路由层、中间件层(JWT 鉴权)、模型层、数据库层" width="100%">
+</p>
 
----
+请求从进入系统到返回响应的完整流程:
 
-## 为什么不同
+- **路由层** 接收 HTTP 请求,把参数交给下一层。
+- **中间件层** 先记日志,再对受保护接口校验 JWT;token 失效或缺失直接返回 401。
+- **模型层** 拼装 SQL 并通过连接池查询 MySQL,把结果回传给路由。
+- **数据库层** 由 `mysql2` 连接池管理连接,避免每次请求新建销毁。
+- **响应** 统一走 `{ code, message, data }` 三段式,前端无需为每个接口写特殊解析。
+
+### 为什么不同
 
 - **分层架构,职责清晰**:路由层只做 HTTP 入口,中间件层负责鉴权与日志,模型层封装 SQL,数据库层负责连接池。请求自上而下贯穿四层,每层只关心自己的事。
 - **JWT 鉴权,状态可校验**:登录返回 24h 有效期的 JWT,受保护接口通过 `Authorization: Bearer <token>` 校验,中间件层统一拦截,无需在每个路由里重复判断。
@@ -65,48 +73,23 @@ pet-adoption-system/
 - **统一响应与错误兜底**:所有接口返回 `{ code, message, data }` 三段式结构;全局错误处理器、404 兜底、未捕获异常兜底三层保障,服务不会因单点异常崩溃。
 - **Liquid Glass 测试页**:`public/index.html` 是一个基于 Apple HIG + Liquid Glass 风格设计的 API 测试页面,支持 Token 管理、密码可见性切换、Toast 反馈,开箱即用。
 
----
+### JWT 鉴权流程
 
-## 工作原理
+<p align="center">
+  <img src="assets/readme/jwt-flow.svg" alt="JWT 鉴权流程:登录签发 token、后续请求携带 Bearer、中间件校验放行或拒绝 401" width="100%">
+</p>
 
-请求从进入系统到返回响应的完整流程:
+### 业务域
 
-```
-HTTP 请求
-   │
-   ▼
-┌─────────────────────────────────────┐
-│ 路由层 Router                        │  petRouter / userRouter
-│ HTTP 入口,解析 req,组装 res          │
-└─────────────────────────────────────┘
-   │
-   ▼
-┌─────────────────────────────────────┐
-│ 中间件 Middleware                    │  logger → auth(JWT verify)
-│ 统一日志 / JWT 校验 / 错误兜底        │  ← Bearer <token>
-└─────────────────────────────────────┘
-   │  通过鉴权
-   ▼
-┌─────────────────────────────────────┐
-│ 模型层 Model                         │  petModel / userModel
-│ 业务逻辑 + SQL 封装                   │
-└─────────────────────────────────────┘
-   │
-   ▼
-┌─────────────────────────────────────┐
-│ 数据库层 MySQL                       │  mysql2 连接池
-│ 持久化 / 事务                         │
-└─────────────────────────────────────┘
-   │
-   ▼
-{ code: 200, message: "操作成功", data: {} }
-```
+<p align="center">
+  <img src="assets/readme/business-modules.svg" alt="业务域:用户域、宠物域、鉴权中间件、Liquid Glass 测试页、统一响应" width="100%">
+</p>
 
-- **路由层** 接收 HTTP 请求,把参数交给下一层。
-- **中间件层** 先记日志,再对受保护接口校验 JWT;token 失效或缺失直接返回 401。
-- **模型层** 拼装 SQL 并通过连接池查询 MySQL,把结果回传给路由。
-- **数据库层** 由 `mysql2` 连接池管理连接,避免每次请求新建销毁。
-- **响应** 统一走 `{ code, message, data }` 三段式,前端无需为每个接口写特殊解析。
+### 核心交互流
+
+<p align="center">
+  <img src="assets/readme/adoption-flow.svg" alt="核心交互流:注册、登录、浏览、管理、统一响应" width="100%">
+</p>
 
 ---
 
@@ -283,6 +266,10 @@ token 由 `POST /user/login` 返回,有效期 24 小时。中间件层 `auth.js`
 
 ## 技术栈
 
+<p align="center">
+  <img src="assets/readme/tech-stack.svg" alt="技术栈:Express、mysql2、jsonwebtoken、bcryptjs、cors、body-parser、dotenv" width="100%">
+</p>
+
 | 类别 | 技术 | 说明 |
 | :--- | :--- | :--- |
 | Web 框架 | Express 5.2 | 路由与中间件装配 |
@@ -319,3 +306,7 @@ app.js                 # 应用入口
 - 许可证: **MIT**
 
 本项目仅用于学习与课程实训,欢迎参考但不建议直接用于生产环境。
+
+<p align="center">
+  <img src="assets/readme/footer.svg" alt="README MADE WITH 签名 - beautify-github-readme 与 design-taste-frontend" width="100%">
+</p>
