@@ -1,76 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="t d">
-  <title id="t">pet-adoption-system · 宠物领养管理系统</title>
-  <desc id="d">Node.js + Express + MySQL + JWT 宠物领养后端 API,分层架构 + JWT 认证。左侧标题与技术栈,右侧展示分层请求流程与认证链路。</desc>
-  <rect width="1200" height="340" rx="22" fill="#0f1a12"/>
-  <rect x="0" y="0" width="6" height="340" rx="3" fill="#84cc16"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="100%" role="img" aria-labelledby="heroTitle heroDesc">
+  <title id="heroTitle">宠物领养管理系统 - 分层架构 + JWT 鉴权流</title>
+  <desc id="heroDesc">Node.js + Express + MySQL + JWT 宠物领养后端 API。右侧分层架构图自上而下展示路由层、中间件层(JWT 鉴权)、模型层、数据库层,JWT token 在中间件层校验。</desc>
 
-  <g transform="translate(56,54)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
-    <text x="0" y="0" font-size="15" letter-spacing="4" fill="#84cc16" font-weight="600">BACKEND · PET ADOPTION API</text>
-    <text x="0" y="52" font-size="40" font-weight="700" fill="#eef3ed">宠物领养管理系统</text>
-    <text x="0" y="96" font-size="17" fill="#8fa890">Node.js + Express + MySQL + JWT</text>
-    <text x="0" y="122" font-size="17" fill="#8fa890">分层架构 · 身份认证 · 前端测试页</text>
+  <defs>
+    <marker id="arrowDown" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 1 1 L 5 8 L 9 1" fill="none" stroke="#8B7E72" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
 
-    <g transform="translate(0,160)" font-size="13.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">
-      <g><rect width="88" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="44" y="20" text-anchor="middle" fill="#bdd0bf">Express 5</text></g>
-      <g transform="translate(100,0)"><rect width="76" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="38" y="20" text-anchor="middle" fill="#bdd0bf">mysql2</text></g>
-      <g transform="translate(188,0)"><rect width="92" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="46" y="20" text-anchor="middle" fill="#bdd0bf">bcryptjs</text></g>
-      <g transform="translate(292,0)"><rect width="56" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="28" y="20" text-anchor="middle" fill="#bdd0bf">JWT</text></g>
-      <g transform="translate(360,0)"><rect width="60" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="30" y="20" text-anchor="middle" fill="#bdd0bf">cors</text></g>
-      <g transform="translate(432,0)"><rect width="64" height="30" rx="8" fill="none" stroke="#1f3324"/><text x="32" y="20" text-anchor="middle" fill="#bdd0bf">dotenv</text></g>
-    </g>
-    <text x="0" y="236" font-size="13" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#5e7261">连接池 · 统一日志 · 全局错误处理 · 404 兑底</text>
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1200" height="360" rx="26" fill="#1A1410"/>
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="26" fill="none" stroke="#2A211B" stroke-width="1"/>
+
+  <!-- ============== LEFT: Title block ============== -->
+  <g transform="translate(56 44)">
+    <!-- Tag with terracotta dot -->
+    <circle cx="5" cy="9" r="4" fill="#C97B5C"/>
+    <text x="18" y="14" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="500" letter-spacing="1.6" fill="#C97B5C">NODE.JS · PET ADOPTION API</text>
+
+    <!-- Main title -->
+    <text x="0" y="76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="700" letter-spacing="-0.5" fill="#E8E4D9">宠物领养管理系统</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="400" fill="#8B7E72">Express · MySQL · JWT · 分层架构</text>
+
+    <!-- Metadata mono -->
+    <text x="0" y="146" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="400" fill="#8B7E72">bcrypt · :3000 · Apple HIG 测试页</text>
+
+    <!-- Accent underline -->
+    <line x1="0" y1="176" x2="56" y2="176" stroke="#C97B5C" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Value one-liner -->
+    <text x="0" y="206" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#E8E4D9">分层架构 · JWT 鉴权 · 统一响应</text>
+    <text x="0" y="228" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#8B7E72">为宠物领养业务提供温暖可靠的后端服务</text>
   </g>
 
-  <g transform="translate(712,52)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif">
-    <text x="0" y="0" font-size="12" letter-spacing="3" fill="#5e7261">LAYERED ARCHITECTURE</text>
+  <!-- ============== RIGHT: Layered architecture + JWT auth flow ============== -->
+  <g transform="translate(720 40)">
+    <!-- Section caption -->
+    <text x="0" y="0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" letter-spacing="1.2" fill="#8B7E72">REQUEST FLOW · TOP → BOTTOM</text>
 
-    <g transform="translate(0,18)">
-      <rect width="420" height="36" rx="7" fill="#16241a" stroke="#1f3324"/>
-      <text x="20" y="23" font-size="12.5" fill="#eef3ed" font-weight="600">HTTP 请求</text>
-      <text x="400" y="23" font-size="10" fill="#7a8a7d" text-anchor="end" font-family="ui-monospace,monospace">Express app</text>
-    </g>
-    <path d="M210,54 L210,66" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-    <path d="M206,62 L210,68 L214,62" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-
-    <g transform="translate(0,70)">
-      <rect width="420" height="36" rx="7" fill="#16241a" stroke="#1f3324"/>
-      <text x="20" y="23" font-size="12.5" fill="#eef3ed" font-weight="600">中间件层 · logger / auth / errorHandler</text>
-      <text x="400" y="23" font-size="10" fill="#7a8a7d" text-anchor="end" font-family="ui-monospace,monospace">middleware/</text>
-    </g>
-    <path d="M210,106 L210,118" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-    <path d="M206,114 L210,120 L214,114" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-
-    <g transform="translate(0,122)">
-      <rect width="420" height="36" rx="7" fill="#16241a" stroke="#1f3324"/>
-      <text x="20" y="23" font-size="12.5" fill="#eef3ed" font-weight="600">路由层 · userRouter / petRouter</text>
-      <text x="400" y="23" font-size="10" fill="#7a8a7d" text-anchor="end" font-family="ui-monospace,monospace">router/</text>
-    </g>
-    <path d="M210,158 L210,170" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-    <path d="M206,166 L210,172 L214,166" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-
-    <g transform="translate(0,174)">
-      <rect width="420" height="36" rx="7" fill="#16241a" stroke="#1f3324"/>
-      <text x="20" y="23" font-size="12.5" fill="#eef3ed" font-weight="600">模型层 · userModel / petModel</text>
-      <text x="400" y="23" font-size="10" fill="#7a8a7d" text-anchor="end" font-family="ui-monospace,monospace">models/</text>
-    </g>
-    <path d="M210,210 L210,222" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-    <path d="M206,218 L210,224 L214,218" stroke="#3d5240" stroke-width="1.5" fill="none"/>
-
-    <g transform="translate(0,226)">
-      <rect width="420" height="36" rx="7" fill="#1a2e16" stroke="#365a22"/>
-      <text x="20" y="23" font-size="12.5" fill="#84cc16" font-weight="600">MySQL 连接池 · mysql2</text>
-      <text x="400" y="23" font-size="10" fill="#5e7a32" text-anchor="end" font-family="ui-monospace,monospace">db/</text>
+    <!-- Layer 1: Router (terracotta accent) -->
+    <g transform="translate(0 16)">
+      <rect x="0" y="0" width="424" height="52" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="52" rx="2" fill="#C97B5C"/>
+      <text x="20" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">路由层 Router</text>
+      <text x="20" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">HTTP entry · req / res</text>
+      <text x="404" y="32" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">petRouter / userRouter</text>
     </g>
 
-    <g transform="translate(0,274)">
-      <rect width="200" height="30" rx="7" fill="#2a1810" stroke="#6b3a1a"/>
-      <text x="100" y="20" text-anchor="middle" font-size="11.5" fill="#b45309" font-weight="600">JWT · 24h · Bearer</text>
-      <g transform="translate(216,0)">
-        <rect width="204" height="30" rx="7" fill="#2a1810" stroke="#6b3a1a"/>
-        <text x="102" y="20" text-anchor="middle" font-size="11.5" fill="#b45309" font-weight="600">bcrypt 密码加密</text>
-      </g>
+    <!-- Arrow 1 -> 2 -->
+    <line x1="212" y1="70" x2="212" y2="78" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#arrowDown)"/>
+
+    <!-- Layer 2: Middleware (cold blue accent = JWT auth layer) -->
+    <g transform="translate(0 80)">
+      <rect x="0" y="0" width="424" height="52" rx="10" fill="#16202E" stroke="#283248" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="52" rx="2" fill="#4A9EFF"/>
+      <text x="20" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">中间件 Middleware</text>
+      <text x="20" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">logger · errorHandler · 404 兜底</text>
+      <text x="320" y="32" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#4A9EFF">JWT verify →</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <line x1="212" y1="134" x2="212" y2="142" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#arrowDown)"/>
+
+    <!-- Layer 3: Model (terracotta accent) -->
+    <g transform="translate(0 144)">
+      <rect x="0" y="0" width="424" height="52" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="52" rx="2" fill="#C97B5C"/>
+      <text x="20" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">模型层 Model</text>
+      <text x="20" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">SQL · 业务逻辑封装</text>
+      <text x="404" y="32" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">petModel / userModel</text>
+    </g>
+
+    <!-- Arrow 3 -> 4 -->
+    <line x1="212" y1="198" x2="212" y2="206" stroke="#8B7E72" stroke-width="1.2" marker-end="url(#arrowDown)"/>
+
+    <!-- Layer 4: MySQL (warm white accent) -->
+    <g transform="translate(0 208)">
+      <rect x="0" y="0" width="424" height="52" rx="10" fill="#221C18" stroke="#3A2F26" stroke-width="1"/>
+      <rect x="0" y="0" width="4" height="52" rx="2" fill="#E8E4D9"/>
+      <text x="20" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="14" font-weight="600" fill="#E8E4D9">数据库层 MySQL</text>
+      <text x="20" y="40" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">持久化 · 事务</text>
+      <text x="404" y="32" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">mysql2 连接池</text>
     </g>
   </g>
 
-  <text x="56" y="312" font-size="12" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#5e7261">author: liem · :3000 · Apple HIG + Liquid Glass 测试页</text>
+  <!-- JWT token badge: callout attached to Layer 2 right side -->
+  <!-- Layer 2 in world coords: x=720-1144, y=120-172. Badge sits at right edge, extends into right margin. -->
+  <g transform="translate(1086 128)">
+    <!-- Connector dashed line from Layer 2 right edge to badge -->
+    <line x1="0" y1="14" x2="14" y2="14" stroke="#4A9EFF" stroke-width="1" stroke-dasharray="2 2"/>
+    <!-- Pill -->
+    <rect x="14" y="0" width="96" height="28" rx="14" fill="#0F1822" stroke="#4A9EFF" stroke-width="1"/>
+    <text x="62" y="14" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="500" fill="#4A9EFF">Bearer &lt;token&gt;</text>
+  </g>
+
+  <!-- ============== Footer ============== -->
+  <g transform="translate(56 312)">
+    <line x1="0" y1="0" x2="1088" y2="0" stroke="#2A211B" stroke-width="1"/>
+    <text x="0" y="22" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">作者 liem · Express 5.2 · MIT</text>
+    <text x="1088" y="22" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">分层架构 · JWT 鉴权流</text>
+  </g>
 </svg>

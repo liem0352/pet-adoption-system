@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 140" width="100%" role="img" aria-labelledby="apiTitle apiDesc">
+  <title id="apiTitle">API 接口章节</title>
+  <desc id="apiDesc">宠物领养系统 API 接口章节横幅,展示 RESTful 端点与方法标签。</desc>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1200" height="140" rx="10" fill="#1A1410"/>
+  <rect x="0.5" y="0.5" width="1199" height="139" rx="10" fill="none" stroke="#2A211B" stroke-width="1"/>
+
+  <!-- ============== LEFT: Section label ============== -->
+  <g transform="translate(48 32)">
+    <!-- Section index -->
+    <text x="0" y="14" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="500" letter-spacing="1.6" fill="#C97B5C">SECTION 03 · API</text>
+
+    <!-- Title -->
+    <text x="0" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="36" font-weight="700" letter-spacing="-0.3" fill="#E8E4D9">API 接口</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="84" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="400" fill="#8B7E72">RESTful · 统一响应 · Bearer 鉴权</text>
+  </g>
+
+  <!-- ============== RIGHT: Method badges ============== -->
+  <g transform="translate(640 36)">
+    <!-- POST /user/register -->
+    <g transform="translate(0 0)">
+      <rect x="0" y="0" width="56" height="22" rx="4" fill="#2A1A14" stroke="#C97B5C" stroke-width="1"/>
+      <text x="28" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#C97B5C">POST</text>
+      <text x="68" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#E8E4D9">/user/register</text>
+    </g>
+
+    <!-- POST /user/login -->
+    <g transform="translate(0 32)">
+      <rect x="0" y="0" width="56" height="22" rx="4" fill="#2A1A14" stroke="#C97B5C" stroke-width="1"/>
+      <text x="28" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#C97B5C">POST</text>
+      <text x="68" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#E8E4D9">/user/login</text>
+      <text x="200" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8B7E72">→ JWT</text>
+    </g>
+
+    <!-- GET /pet/list -->
+    <g transform="translate(0 64)">
+      <rect x="0" y="0" width="56" height="22" rx="4" fill="#14201A" stroke="#6E8B7A" stroke-width="1"/>
+      <text x="28" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#9EB8A8">GET</text>
+      <text x="68" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#E8E4D9">/pet/list</text>
+    </g>
+
+    <!-- Vertical divider -->
+    <line x1="290" y1="0" x2="290" y2="86" stroke="#2A211B" stroke-width="1"/>
+
+    <!-- DELETE /pet/delete -->
+    <g transform="translate(310 0)">
+      <rect x="0" y="0" width="64" height="22" rx="4" fill="#2A1414" stroke="#A05A5A" stroke-width="1"/>
+      <text x="32" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#C97B7B">DELETE</text>
+      <text x="76" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#E8E4D9">/pet/delete?id=</text>
+    </g>
+
+    <!-- GET /pet/search -->
+    <g transform="translate(310 32)">
+      <rect x="0" y="0" width="64" height="22" rx="4" fill="#14201A" stroke="#6E8B7A" stroke-width="1"/>
+      <text x="32" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#9EB8A8">GET</text>
+      <text x="76" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#E8E4D9">/pet/search?keyword=</text>
+    </g>
+
+    <!-- Auth note -->
+    <g transform="translate(310 64)">
+      <rect x="0" y="0" width="64" height="22" rx="4" fill="#0F1822" stroke="#4A9EFF" stroke-width="1"/>
+      <text x="32" y="11" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" font-weight="600" fill="#4A9EFF">AUTH</text>
+      <text x="76" y="11" dominant-baseline="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="400" fill="#8B7E72">Authorization: Bearer &lt;token&gt;</text>
+    </g>
+  </g>
+</svg>
